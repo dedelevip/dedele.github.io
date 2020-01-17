@@ -14,6 +14,7 @@
 	<style>
 	h1{ color:#CC0000; }
 	#loveday{ color:pink; }
+	#loveline{ color:pink; }
 	</style>
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
@@ -38,6 +39,8 @@
 			<tbody>
 			</tbody>
 		</table>
+		<hr />
+		<p id="loveline" class="am-text-center am-margin-top-0">...<span></span></p>
 	</div>
     <script type="text/javascript">
 $.AMUI.progress.start();
@@ -50,6 +53,7 @@ $(function(){
 	do_data();
 	do_init();
 	do_loveday();
+	do_loveline();
 	$.AMUI.progress.done();
 });
 
@@ -132,6 +136,47 @@ function do_data(){
 		['2019-12-25','圣诞节'],
 		['2020-01-01','元旦']
 	];
+}
+
+var de_loveline=[];
+function do_loveline(){
+	de_loveline=[
+		'全世界哪里最美？答案是你身边。',
+		'《机场雷雨》',
+		'《欢喜》',
+		'耒阳',
+		'全世界哪里最美？答案是你身边。',
+		'浏阳',
+		'长沙',
+		'珠海',
+		'全世界哪里最美？答案是你身边。',
+		'重庆',
+		'北京',
+		'佛山',
+		'全世界哪里最美？答案是你身边。',
+		'银川',
+		'合肥',
+		'三亚',
+		'全世界哪里最美？答案是你身边。',
+		'天津',
+		'东江湖',
+		'全世界哪里最美？答案是你身边。'
+	];
+	do_loveline_interval();
+	setInterval(function(){do_loveline_interval();},1000*5);
+}
+
+function do_loveline_interval(){
+	$('#loveline').fadeOut(1000,function(){
+		$(this).html(de_loveline[RandomNumBoth(0,de_loveline.length-1)]).fadeIn(2000);
+	});
+}
+
+function RandomNumBoth(Min,Max){
+      var Range = Max - Min;
+      var Rand = Math.random();
+      var num = Min + Math.round(Rand * Range);
+      return num;
 }
     </script>
 </body>
