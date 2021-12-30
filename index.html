@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>源love蜜</title>
+    <title>刘氏家族 - 生日日历</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <meta name="renderer" content="webkit">
     <meta name="force-rendering" content="webkit">
@@ -13,16 +13,16 @@
 	<link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
 	<style>
 	h1{ color:#CC0000; }
-	#loveday{ color:pink; }
-	#loveline{ color:pink; }
 	</style>
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
     <div id="main" class="am-margin">
-		<h1 class="am-text-center am-margin-bottom-0">源 <i class="fa fa-heart"></i> 蜜</h1>
-		<p id="loveday" class="am-text-center am-margin-top-0">我们在一起<span></span></p>
+		<h1 class="am-text-center am-margin-bottom-0">刘氏家族 <i class="am-icon-birthday-cake"></i> 生日日历</h1>
+        <hr />
+        <div id="list" class="am-text-center">
+        </div>
 		<hr />
 		<table id="rili" class="am-table am-table-bordered am-table-radius box-shadow am-table-centered">
 			<thead>
@@ -40,38 +40,31 @@
 			</tbody>
 		</table>
 		<hr />
-		<p id="loveline" class="am-text-center am-margin-top-0">...<span></span></p>
 	</div>
     <script type="text/javascript">
 $.AMUI.progress.start();
-var de_begin=new Date('2018-05-03');
+var de_begin=new Date();
 var de_begin_week=de_begin.getDay();
-var de_now=new Date();
-var de_now_week=de_now.getDay();
+var de_end=new Date();
+de_end.setDate(de_end.getDate()+365);
+var de_end_week=de_end.getDay();
 var de_days=0;
 $(function(){
 	do_data();
 	do_init();
-	do_loveday();
-	do_loveline();
 	$.AMUI.progress.done();
 });
 
 function de_format(d,s){
 	s=s.replace(/yyyy|YYYY/,d.getFullYear());
 	s=s.replace(/MM/,d.getMonth()>=9?(d.getMonth()+1).toString():'0'+(d.getMonth()+1));
-	s=s.replace(/dd|DD/,d.getDate()>9?d.getDate().toString():'0'+d.getDate());
-	return s;
-} 
-
-function do_loveday(){
-	$('#loveday span').html(' '+de_days+' 天啦');
+	return s.replace(/dd|DD/,d.getDate()>9?d.getDate().toString():'0'+d.getDate());
 }
 
 function do_init(){
-	de_days = Math.floor((de_now-de_begin)/(1000*60*60*24));
+	de_days = Math.floor((de_end-de_begin)/(1000*60*60*24));
 	var _fill_1=de_begin_week==0?6:de_begin_week-1;
-	var _fill_2=de_now_week==0?0:7-de_now_week;
+	var _fill_2=de_end_week==0?0:7-de_end_week;
 	var _count=de_days+_fill_1+_fill_2+1;
 	var _cishu=_count/7;
 	var _date=de_begin;
@@ -103,6 +96,13 @@ function do_init(){
 	$('#rili tbody').append(_html);
 	
 	$.each(de_data,function(k,v){
+        _date = new Date(v[0]);
+        $('#list').append('<div class="am-panel am-panel-warning am-animation-shake">'
+            +'<div class="am-panel-bd"><button type="button" class="am-btn am-btn-warning am-round">距离 '
+                +v[1]+' <i class="am-icon-heart"></i> 还有 '
+                +Math.ceil((_date-(new Date()))/(1000*60*60*24))
+                +' 天</button></div></div>'
+        );
 		$('.d'+v[0]).addClass('am-active').attr('data',$('.d'+v[0]).attr('data')+'<br />'+v[1]);
 	});
 	
@@ -115,68 +115,16 @@ function do_init(){
 			});
 		}
 	});
+
+    
 }
 
 var de_data=[];
 function do_data(){
 	de_data=[
-		['2018-05-03','我们恋爱啦~'],
-		['2018-08-17','七夕'],
-		['2018-12-19','小仙女，生日快乐~'],
-		['2018-12-24','平安夜'],
-		['2018-12-25','圣诞节'],
-		['2019-01-01','元旦'],
-		['2019-02-04','除夕'],
-		['2019-02-05','春节'],
-		['2019-02-14','情人节'],
-		['2019-05-03','恋爱一周年~'],
-		['2019-08-07','七夕'],
-		['2019-12-08','蜜蜜宝，生日快乐~'],
-		['2019-12-24','平安夜'],
-		['2019-12-25','圣诞节'],
-		['2020-01-01','元旦']
+		['2022-02-24','米晨 5 周岁'],
+		['2022-11-26','米童 4 周岁']
 	];
-}
-
-var de_loveline=[];
-function do_loveline(){
-	de_loveline=[
-		'全世界哪里最美？答案是你身边。',
-		'《机场雷雨》',
-		'《欢喜》',
-		'耒阳',
-		'全世界哪里最美？答案是你身边。',
-		'浏阳',
-		'长沙',
-		'珠海',
-		'全世界哪里最美？答案是你身边。',
-		'重庆',
-		'北京',
-		'佛山',
-		'全世界哪里最美？答案是你身边。',
-		'银川',
-		'合肥',
-		'三亚',
-		'全世界哪里最美？答案是你身边。',
-		'天津',
-		'东江湖',
-		'全世界哪里最美？答案是你身边。'
-	];
-	do_loveline_interval();
-	setInterval(function(){do_loveline_interval();},1000*5);
-}
-
-function do_loveline_interval(){
-	$('#loveline').fadeOut(1000,function(){
-		$(this).html(de_loveline[RandomNumBoth(0,de_loveline.length-1)]).fadeIn(2000);
-	});
-}
-
-function RandomNumBoth(Min,Max){
-      var Range = Max - Min;
-      var Rand = Math.random();
-      var num = Min + Math.round(Rand * Range);
-      return num;
 }
     </script>
 </body>
